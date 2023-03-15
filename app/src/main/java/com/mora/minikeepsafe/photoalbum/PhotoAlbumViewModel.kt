@@ -8,6 +8,8 @@ import com.mora.minikeepsafe.data.PhotosItem
 import com.mora.minikeepsafe.data.Repository
 import com.mora.minikeepsafe.data.Response
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -36,7 +38,7 @@ class PhotoAlbumViewModel @Inject constructor(val repo: Repository) : ViewModel(
                         pageToFetch = page + 1
                     }
                 }
-            }.launchIn(viewModelScope)
+            }.flowOn(Dispatchers.IO).launchIn(viewModelScope)
         }
     }
 }
